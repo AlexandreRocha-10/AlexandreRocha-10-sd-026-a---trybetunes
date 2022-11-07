@@ -26,7 +26,7 @@ export default class App extends React.Component {
     });
   };
 
-  loginBtnClick = async () => {
+  loginBtnClick = () => {
     this.setState({
       loading: true,
     });
