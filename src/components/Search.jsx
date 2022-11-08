@@ -62,7 +62,7 @@ export default class Search extends Component {
         <form>
           <input
             data-testid="search-artist-input"
-            name="artistName"
+            name="artistN"
             type="text"
             onChange={ this.handleInputSearch }
             value={ artistN }
