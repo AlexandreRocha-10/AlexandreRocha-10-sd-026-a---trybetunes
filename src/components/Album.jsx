@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Header from './Header';
 import MusicCard from './MusicCard';
 import getMusics from '../services/musicsAPI';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 export default class Album extends Component {
   state = {
@@ -11,6 +12,7 @@ export default class Album extends Component {
     cover: '',
     musics: [],
     album: '',
+    favoriteList: [],
   };
 
   componentDidMount() {
@@ -22,8 +24,10 @@ export default class Album extends Component {
     const { id } = match.params;
     const musicList = await getMusics(id);
     const musicArray = [...musicList];
+    const favoriteList = await getFavoriteSongs();
     this.setState({
       musics: musicArray,
+      favoriteList,
       artistN: musicArray.shift().artistName,
       cover: musicList[0].artworkUrl100,
       album: musicList[0].collectionName,
@@ -31,7 +35,7 @@ export default class Album extends Component {
   };
 
   render() {
-    const { artistN, musics, cover, album } = this.state;
+    const { artistN, musics, cover, album, favoriteList } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
@@ -46,6 +50,7 @@ export default class Album extends Component {
             trackName={ music.trackName }
             previewUrl={ music.previewUrl }
             trackId={ music.trackId }
+            favoriteList={ favoriteList.some((fav) => fav.trackId === music.trackId) }
           />
         )) }
       </div>
