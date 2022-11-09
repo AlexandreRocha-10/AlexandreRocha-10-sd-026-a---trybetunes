@@ -14,6 +14,7 @@ export default class MusicCard extends Component {
     this.setState({
       checked,
     });
+
     this.setState({ loading: true });
     await addSong(this.props);
     this.setState({ loading: false });
